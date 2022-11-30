@@ -3,12 +3,12 @@ const sql = require('./sql.js');
 require("dotenv").config();
 
 const pool = mysql.createPool({
-    connectionLimit : process.env.LIMIT, //10, //
-    host : process.env.HOST, //'localhost', // 로컬호스트로 하니까 오류남
-    port : process.env.PORT, //'3306',//
-    user : process.env.DB_USER, //'dev01',//
-    password : process.env.PASSWORD, //'1234',//
-    database :  process.env.DB // 'kwic',//
+    connectionLimit :  10,//process.env.LIMIT, 
+    host : 'firstserver.ctk6srnbe3rf.us-east-1.rds.amazonaws.com',//process.env.HOST, 
+    port : '3306',//process.env.PORT, 
+    user : 'admin',//process.env.DB_USER, 
+    password : 'mysqlqlqjs1',//process.env.PASSWORD, 
+    database :  "firstserver"
 });
 
 const query = async (alias,values)=>{

@@ -1,7 +1,7 @@
 module.exports={
-    getID :`select userid from users`,
+    getID :`select name from users`,
     
     userInsert: `insert into users set ?`,
 
-    getPassword : 'select pwd,salt from users where userid = ? '
+    getPassword : 'select password,salt from users where name = ? '
 }

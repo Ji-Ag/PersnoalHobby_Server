@@ -3,9 +3,13 @@ const { response } = require('../../app.js');
 const router = express.Router();
 const mysql = require("../../mysql/index.js");
 
-router.post('/test',async(req,res)=>{
+router.get('/test',async(req,res)=>{
+    try{
     const existid = await mysql.query("getID");
-    res.send(existid);
+    res.send(existid);}
+    catch(err){
+        console.log(err);
+    }
 })
 //아이디 중복체크
 router.post("/checkId", async(req,res)=>{
