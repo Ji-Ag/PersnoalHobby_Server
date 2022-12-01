@@ -1,5 +1,5 @@
 module.exports={
-    getID :`select name from users`,
+    getID :`select userId from users`,
     
     userInsert: `insert into users set ?`,
 
