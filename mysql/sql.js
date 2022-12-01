@@ -3,5 +3,5 @@ module.exports={
     
     userInsert: `insert into users set ?`,
 
-    getPassword : 'select password,salt from users where name = ? '
+    getPassword : 'select password,salt from users where userId = ? '
 }

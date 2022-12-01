@@ -4,6 +4,7 @@ const router = express.Router();
 const mysql = require("../../mysql/index.js");
 var bkfd2Password = require("pbkdf2-password");
 var hasher = bkfd2Password();
+var jwt = require('jsonwebtoken');
 require("dotenv").config();
 
 router.get('/test',async(req,res)=>{
@@ -96,5 +97,68 @@ router.post("/register", async(req,res)=>{
     });; 
         }); 
 });
+
+/*로그인*/
+router.get("/logincheck",async (req,res)=>{
+    console.log("유효성체크중")
+   
+    const existid = await mysql.query("getID");
+   
+        console.log(req.query.userid);
+        console.log(req.query.userpwd);
+        for(i in existid){
+            if(req.query.userid===existid[i].userId){
+                console.log("등록된 회원, 비번일치하는지 확인하자")
+               //디코딩
+               var decodedPwd = Buffer.from(req.query.userpwd, "base64").toString('utf8');
+                const existpwd = await mysql.query("getPassword", req.query.userid);
+               console.log(existpwd[0].salt);
+                 //암호화
+                var opts = {
+                password: decodedPwd,
+                salt : existpwd[0].salt
+                };
+              
+                hasher(opts,async function(err, pass,salt, hash) {
+                    console.log(hash);
+                    if(existpwd[0].password === hash){
+                        console.log("로그인 성공!");
+                        var token = jwt.sign(
+                            {
+                                id: req.query.userid,
+                            }, process.env.SECRETE,
+                            {
+                                expiresIn :"1h",
+                                issuer : "토큰발급자",
+                              
+                            },
+                            
+                        )
+                        res.status(200).json({
+                            id: 1,
+                            message:"로그인 성공! 토큰 발급 완료",
+                            token : token,
+                            code : 1,
+                        });; 
+                        
+                        return ;
+                    }else{
+                        res.status(200).json({
+                            id : req.query.userid,
+                            message:"아이디 비밀번호를 확인해주세요",
+                            code : -1,
+                        });; return;
+                        }   
+                    }) 
+            }
+            }
+            setTimeout(()=>{res.status(200).json({
+                id : req.query.userid,
+                message:"아이디 비밀번호를 확인해주세요",
+                code : -1,
+            });; return;},10000)
+            
+});
+
 
 module.exports = router;
