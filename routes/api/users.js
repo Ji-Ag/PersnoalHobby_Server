@@ -22,6 +22,8 @@ router.get("/checkId", async(req,res)=>{
     //      body += data;
     //  });
      //console.log(`body${req.body}`);
+     console.log(existid);
+     console.log(req.params.id);
      for(i in existid){
             
         if(req.query.id===existid[i].userId){
