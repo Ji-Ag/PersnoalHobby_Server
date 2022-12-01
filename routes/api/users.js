@@ -2,6 +2,9 @@ const express = require('express');
 const { response } = require('../../app.js');
 const router = express.Router();
 const mysql = require("../../mysql/index.js");
+var bkfd2Password = require("pbkdf2-password");
+var hasher = bkfd2Password();
+require("dotenv").config();
 
 router.get('/test',async(req,res)=>{
    
