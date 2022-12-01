@@ -85,8 +85,8 @@ router.post("/register", async(req,res)=>{
         
 
     var sql={
-        userid : req.body[0],
-        pwd : hash,
+        userId : req.body[0],
+        password : hash,
         salt : salt
     }
     await mysql.query("userInsert", sql);
