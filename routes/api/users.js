@@ -23,14 +23,14 @@ router.get("/checkId", async(req,res)=>{
     //  });
      //console.log(`body${req.body}`);
      console.log(existid);
-     console.log(req.params.id);
+     console.log(req.query.id);
      for(i in existid){
             
         if(req.query.id===existid[i].userId){
             index = -1;
             console.log("같아");
             
-            return res.status(600).json({
+            return res.status(200).json({
                 id : req.query.id,
                 message : "중복 아이디 존재",
                 success : false,
