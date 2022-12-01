@@ -9,7 +9,7 @@ router.get('/test',async(req,res)=>{
     res.send(existid);
     });
 
-//아이디 중복체크
+/*아이디 중복체크*/
 router.get("/checkId", async(req,res)=>{
     console.log("중복체크요청");
     //var success = false;
@@ -52,6 +52,46 @@ router.get("/checkId", async(req,res)=>{
     }
     
     
+});
+
+/*회원가입*/
+router.post("/register", async(req,res)=>{
+    console.log("신규회원 등록중");
+        let body ='';
+            req.on('data',(data)=>{
+            body += data;
+            
+        });
+        //디코딩
+        var decodedPwd = Buffer.from(req.body[1], "base64").toString('utf8');
+        console.log("디코딩한 비번", decodedPwd);
+   
+        //암호화
+        var userSalt = '';
+        
+    var opts = {
+      password: decodedPwd,
+     // salt : 10
+    };
+    
+    hasher(opts, async function(err, pass, salt, hash) {
+      opts.salt = salt;
+      
+        userSalt = salt;
+        
+        
+
+    var sql={
+        userid : req.body[0],
+        pwd : hash,
+        salt : salt
+    }
+    await mysql.query("userInsert", sql);
+   return res.status(200).json({
+        id : req.body[0],
+        message:"회원가입 성공",
+    });; 
+        }); 
 });
 
 module.exports = router;
