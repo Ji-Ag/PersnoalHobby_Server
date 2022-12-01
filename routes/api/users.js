@@ -13,7 +13,7 @@ router.get('/test',async(req,res)=>{
 router.get("/checkId", async(req,res)=>{
     console.log("중복체크요청");
     //var success = false;
-    var message ="";
+    //var message ="";
     try{
      const existid = await mysql.query("getID");
     //req.on('end',()=>{
@@ -24,7 +24,7 @@ router.get("/checkId", async(req,res)=>{
      //console.log(`body${req.body}`);
      for(i in existid){
             
-        if(req.query.id===existid[i].name){
+        if(req.query.id===existid[i].userId){
             index = -1;
             console.log("같아");
             
