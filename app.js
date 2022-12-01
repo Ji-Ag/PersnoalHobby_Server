@@ -6,11 +6,11 @@ var logger = require('morgan');
 var router = express.Router();
 const cors = require('cors');
 
-// app.use(cors({
-//   origin:"http://localhost:3001",
-//   methods: ["GET","POST"],
-// }
-// ));
+app.use(cors({
+  origin:"http://localhost:3000",
+  methods: ["GET","POST"],
+}
+));
 var app = express();
 var indexRouter = require('./routes/index');
 //var usersRouter = require('./routes/users');
