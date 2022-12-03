@@ -21,6 +21,8 @@ module.exports={
 
     getFavorite : `select favorite from favorite where userId =?`,
 
+    deleteFavorite : `delete from favorite where userId=? and favorite=?`,
+
     //HBTI
     getHBTIResult : `select result where hbti =?`,
 
