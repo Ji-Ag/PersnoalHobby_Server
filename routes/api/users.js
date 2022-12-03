@@ -1,5 +1,4 @@
 const express = require('express');
-const { response } = require('../../app.js');
 const router = express.Router();
 const mysql = require("../../mysql/index.js");
 var bkfd2Password = require("pbkdf2-password");
@@ -28,15 +27,16 @@ router.get("/checkId", async(req,res)=>{
     //  });
      //console.log(`body${req.body}`);
      console.log(existid);
-     console.log(req.body.id);
+     console.log(req.params);
+     console.log(req.query.id);
      for(i in existid){
             
-        if(req.body.id===existid[i].userId){
+        if(req.query.id===existid[i].userId){
             index = -1;
             console.log("같아");
             
             return res.status(200).json({
-                id : req.body.id,
+                id : req.query.id,
                 message : "중복 아이디 존재",
                 success : false,
                 index : -1
@@ -46,7 +46,7 @@ router.get("/checkId", async(req,res)=>{
     }
 
     return res.status(200).json({
-        id : req.body.id,
+        id : req.query.id,
         message : "중복 아이디 없음",
         success : true,
         index : 1
