@@ -27,7 +27,7 @@ router.get("/checkId", async(req,res)=>{
     //  });
      //console.log(`body${req.body}`);
      console.log(existid);
-     console.log(req.params);
+     
      console.log(req.query.id);
      for(i in existid){
             
@@ -105,8 +105,8 @@ router.get("/logincheck",async (req,res)=>{
    
     const existid = await mysql.query("getID");
    
-        console.log(req.body.userid);
-        console.log(req.body.userpwd);
+        console.log(req.query.userid);
+        console.log(req.query.userpwd);
         for(i in existid){
             if(req.query.userid===existid[i].userId){
                 console.log("등록된 회원, 비번일치하는지 확인하자")
@@ -116,7 +116,7 @@ router.get("/logincheck",async (req,res)=>{
                console.log(existpwd[0].salt);
                  //암호화
                 var opts = {
-                password: req.body.userpwd,
+                password: req.query.userpwd,
                 salt : existpwd[0].salt
                 };
               
@@ -145,7 +145,7 @@ router.get("/logincheck",async (req,res)=>{
                         return ;
                     }else{
                         res.status(200).json({
-                            id : req.body.userid,
+                            id : req.query.userid,
                             message:"아이디 비밀번호를 확인해주세요",
                             code : -1,
                         });; return;
@@ -154,7 +154,7 @@ router.get("/logincheck",async (req,res)=>{
             }
             }
             setTimeout(()=>{res.status(200).json({
-                id : req.body.userid,
+                id : req.query.userid,
                 message:"아이디 비밀번호를 확인해주세요",
                 code : -1,
             });; return;},10000)
