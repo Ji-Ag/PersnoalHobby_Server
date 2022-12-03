@@ -24,11 +24,13 @@ var usersApi = require('./routes/api/users');
 var diaryApi = require("./routes/api/diary");
 var hbtiApi = require('./routes/api/hbti');
 var mainApi = require('./routes/api/main');
+var favoriteApi = require('./routes/api/favorite');
 
 app.use('/',usersApi);
 app.use('/',diaryApi);
 app.use('/',hbtiApi);
 app.use('/',mainApi);
+app.use('/',favoriteApi);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
