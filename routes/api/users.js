@@ -123,8 +123,6 @@ router.get("/login",async (req,res)=>{
                 };
                console.log(existpwd[0].salt);
                 hasher(opts,async function(err, pass,salt, hash) {
-                    console.log("hash",hash);
-                    console.log("password",existpwd[0].password);
                     if(existpwd[0].password == hash){
                         console.log("로그인 성공!");
                         var token = jwt.sign(
@@ -139,7 +137,7 @@ router.get("/login",async (req,res)=>{
                             
                         )
                         res.status(200).json({
-                            id: 1,
+                            id: req.query.userid,
                             message:"로그인 성공! 토큰 발급 완료",
                             token : token,
                             code : 1,
