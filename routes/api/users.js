@@ -5,6 +5,7 @@ const mysql = require("../../mysql/index.js");
 var bkfd2Password = require("pbkdf2-password");
 var hasher = bkfd2Password();
 var jwt = require('jsonwebtoken');
+var {verifyToken} = require('./jwtverify');
 require("dotenv").config();
 
 router.get('/test',async(req,res)=>{
@@ -27,15 +28,15 @@ router.get("/checkId", async(req,res)=>{
     //  });
      //console.log(`body${req.body}`);
      console.log(existid);
-     console.log(req.query.id);
+     console.log(req.body.id);
      for(i in existid){
             
-        if(req.query.id===existid[i].userId){
+        if(req.body.id===existid[i].userId){
             index = -1;
             console.log("같아");
             
             return res.status(200).json({
-                id : req.query.id,
+                id : req.body.id,
                 message : "중복 아이디 존재",
                 success : false,
                 index : -1
@@ -45,7 +46,7 @@ router.get("/checkId", async(req,res)=>{
     }
 
     return res.status(200).json({
-        id : req.query.id,
+        id : req.body.id,
         message : "중복 아이디 없음",
         success : true,
         index : 1
@@ -67,14 +68,14 @@ router.post("/register", async(req,res)=>{
             
         });
         //디코딩
-        var decodedPwd = Buffer.from(req.body[1], "base64").toString('utf8');
-        console.log("디코딩한 비번", decodedPwd);
+        //var decodedPwd = Buffer.from(req.body[1], "base64").toString('utf8');
+       // console.log("디코딩한 비번", decodedPwd);
    
         //암호화
         var userSalt = '';
         
     var opts = {
-      password: decodedPwd,
+      password: req.body[1],
      // salt : 10
     };
     
@@ -104,18 +105,18 @@ router.get("/logincheck",async (req,res)=>{
    
     const existid = await mysql.query("getID");
    
-        console.log(req.query.userid);
-        console.log(req.query.userpwd);
+        console.log(req.body.userid);
+        console.log(req.body.userpwd);
         for(i in existid){
             if(req.query.userid===existid[i].userId){
                 console.log("등록된 회원, 비번일치하는지 확인하자")
                //디코딩
-               var decodedPwd = Buffer.from(req.query.userpwd, "base64").toString('utf8');
+               //var decodedPwd = Buffer.from(req.query.userpwd, "base64").toString('utf8');
                 const existpwd = await mysql.query("getPassword", req.query.userid);
                console.log(existpwd[0].salt);
                  //암호화
                 var opts = {
-                password: decodedPwd,
+                password: req.body.userpwd,
                 salt : existpwd[0].salt
                 };
               
@@ -144,7 +145,7 @@ router.get("/logincheck",async (req,res)=>{
                         return ;
                     }else{
                         res.status(200).json({
-                            id : req.query.userid,
+                            id : req.body.userid,
                             message:"아이디 비밀번호를 확인해주세요",
                             code : -1,
                         });; return;
@@ -153,7 +154,7 @@ router.get("/logincheck",async (req,res)=>{
             }
             }
             setTimeout(()=>{res.status(200).json({
-                id : req.query.userid,
+                id : req.body.userid,
                 message:"아이디 비밀번호를 확인해주세요",
                 code : -1,
             });; return;},10000)
