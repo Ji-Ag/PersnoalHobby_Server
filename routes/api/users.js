@@ -107,8 +107,8 @@ router.get("/logincheck",async (req,res)=>{
    
         console.log(req.query.userid);
         console.log(req.query.userpwd);
-        for(i in existid){
-            if(req.query.userid===existid[i].userId){
+        //for(i in existid){
+           // if(req.query.userid===existid[i].userId){
                 console.log("등록된 회원, 비번일치하는지 확인하자")
                //디코딩
                //var decodedPwd = Buffer.from(req.query.userpwd, "base64").toString('utf8');
@@ -151,13 +151,14 @@ router.get("/logincheck",async (req,res)=>{
                         });; return;
                         }   
                     }) 
-            }
-            }
-            setTimeout(()=>{res.status(200).json({
-                id : req.query.userid,
-                message:"아이디 비밀번호를 확인해주세요",
-                code : -1,
-            });; return;},10000)
+           // }
+            //}
+            
+            // setTimeout(()=>{res.status(200).json({
+            //     id : req.query.userid,
+            //     message:"아이디 비밀번호를 확인해주세요",
+            //     code : -1,
+            // });; return;},10000)
             
 });
 
