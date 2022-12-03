@@ -102,7 +102,7 @@ router.post("/register", async(req,res)=>{
 });
 
 /*로그인*/
-router.get("/logincheck",async (req,res)=>{
+router.get("/login",async (req,res)=>{
     console.log("유효성체크중")
    
     const existid = await mysql.query("getID");
@@ -115,15 +115,15 @@ router.get("/logincheck",async (req,res)=>{
                //디코딩
                //var decodedPwd = Buffer.from(req.query.userpwd, "base64").toString('utf8');
                 const existpwd = await mysql.query("getPassword", req.query.userid);
-               console.log(existpwd[0].salt);
+              
                  //암호화
                 var opts = {
                 password: req.query.userpwd,
                 salt : existpwd[0].salt
                 };
-              
+               console.log(existpwd[0].salt);
                 hasher(opts,async function(err, pass,salt, hash) {
-                    console.log(hash);
+                    console.log("hash",hash);
                     if(existpwd[0].password === hash){
                         console.log("로그인 성공!");
                         var token = jwt.sign(
