@@ -67,6 +67,8 @@ router.post("/register", async(req,res)=>{
             body += data;
             
         });
+
+        console.log("userid", req.body.userid);
         //디코딩
         //var decodedPwd = Buffer.from(req.body[1], "base64").toString('utf8');
        // console.log("디코딩한 비번", decodedPwd);
@@ -75,7 +77,7 @@ router.post("/register", async(req,res)=>{
         var userSalt = '';
         
     var opts = {
-      password: req.body[1],
+      password: req.body.userpwd,
      // salt : 10
     };
     
@@ -87,13 +89,13 @@ router.post("/register", async(req,res)=>{
         
 
     var sql={
-        userId : req.body[0],
+        userId : req.body.userid,
         password : hash,
         salt : salt
     }
     await mysql.query("userInsert", sql);
    return res.status(200).json({
-        id : req.body[0],
+        id : req.body.userid,
         message:"회원가입 성공",
     });; 
         }); 
