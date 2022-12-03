@@ -12,7 +12,7 @@ module.exports={
 
     getDiary : `select title,content,diaryCode,createDate from diary where userId =?`,
 
-    getBigDiary : `select title,content from diary where diaryCode =?`,
+    getBigDiary : `select title,content,createDate from diary where diaryCode =?`,
 
     setDiary : `update into diary set ?`,
 

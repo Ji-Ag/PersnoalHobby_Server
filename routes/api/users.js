@@ -102,23 +102,22 @@ router.post("/register", async(req,res)=>{
 });
 
 /*로그인*/
-router.get("/login",async (req,res)=>{
+router.post("/login",async (req,res)=>{
     console.log("유효성체크중")
    
     const existid = await mysql.query("getID");
    
-        console.log(req.query.userid);
-        console.log(req.query.userpwd);
+       ;
         //for(i in existid){
            // if(req.query.userid===existid[i].userId){
                 console.log("등록된 회원, 비번일치하는지 확인하자")
                //디코딩
                //var decodedPwd = Buffer.from(req.query.userpwd, "base64").toString('utf8');
-                const existpwd = await mysql.query("getPassword", req.query.userid);
+                const existpwd = await mysql.query("getPassword", req.body.userid);
               
                  //암호화
                 var opts = {
-                password: req.query.userpwd,
+                password: req.body.userpwd,
                 salt : existpwd[0].salt
                 };
                console.log(existpwd[0].salt);
@@ -127,7 +126,7 @@ router.get("/login",async (req,res)=>{
                         console.log("로그인 성공!");
                         var token = jwt.sign(
                             {
-                                id: req.query.userid,
+                                id: req.body.userid,
                             }, process.env.SECRETE,
                             {
                                 expiresIn :"1h",
@@ -137,7 +136,7 @@ router.get("/login",async (req,res)=>{
                             
                         )
                         res.status(200).json({
-                            id: req.query.userid,
+                            id: req.body.userid,
                             message:"로그인 성공! 토큰 발급 완료",
                             token : token,
                             code : 1,
@@ -146,7 +145,7 @@ router.get("/login",async (req,res)=>{
                         return ;
                     }else{
                         res.status(200).json({
-                            id : req.query.userid,
+                            id : req.body.userid,
                             message:"아이디 비밀번호를 확인해주세요",
                             code : -1,
                         });; return;
