@@ -7,13 +7,7 @@ require("dotenv").config();
 
 /*일기 등록*/
 router.post("/putDiary",verifyToken,async (req,res)=>{
-    let body ='';
-            req.on('data',(data)=>{
-            body += data;
-            
-        });
 
-        console.log(req.body.title);
     const time = Date.now();
     const createDate = new Date(time);
     console.log(time);
@@ -48,6 +42,42 @@ router.post("/putDiary",verifyToken,async (req,res)=>{
         });; 
     }
 
+});
+
+/*일기 목록보기*/
+router.get("/getDiary",verifyToken,async (req,res)=>{
+    const userid = req.decoded.id;
+    const diary = await mysql.query("getDiary", userid);
+
+    return res.status(200).json({
+        message : "일기 불러오기 성공",
+        userid : userid,
+        diary : diary,
+
+    });; 
+
+
+});
+
+/*상세일기보기*/
+router.get("/getBigDiary",verifyToken,async (req,res)=>{
+    const userid = req.decoded.id;
+    const diary = await mysql.query("getBigDiary", req.query.diaryCode);
+
+    return res.status(200).json({
+        message : "일기 불러오기 성공",
+        userid : userid,
+        diary : diary,
+
+    });; 
+
+
+});
+
+/*일기수정*/
+router.get("/setDiary",verifyToken,async (req,res)=>{
+    const userid = req.decoded.id;
+    
 });
 
 router.get('/payload', verifyToken, (req, res) => {

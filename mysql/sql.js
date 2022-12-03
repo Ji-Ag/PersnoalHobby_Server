@@ -10,7 +10,7 @@ module.exports={
     //diary
     putDiary : `insert into diary set ?`,
 
-    getDiary : `select title,content,diaryCode from diary where userId =?`,
+    getDiary : `select title,content,diaryCode,createDate from diary where userId =?`,
 
     getBigDiary : `select title,content from diary where diaryCode =?`,
 
