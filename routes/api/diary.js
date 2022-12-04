@@ -75,9 +75,49 @@ router.get("/getBigDiary",verifyToken,async (req,res)=>{
 });
 
 /*일기수정*/
-router.get("/setDiary",verifyToken,async (req,res)=>{
+router.post("/setDiary",verifyToken,async (req,res)=>{
     const userid = req.decoded.id;
+    const time = Date.now();
+    const createDate = new Date(time);
+
+
+    try{
+        await mysql.query("setDiary", [req.body.title, req.body.content, createDate, req.body.diaryCode]);
+        return res.status(200).json({
+            userid : userid,
+            message : "일기수정 성공",
+            createDate : createDate,
+            diaryCode : req.body.diaryCode
     
+        });; 
+    }
+    catch(err){
+        console.log(err);
+        return res.status(200).json({
+            message : "일기수정 실패"
+    
+        });; 
+    }
+
+});
+
+router.post("/deleteDiary",verifyToken,async (req,res)=>{
+    const userid = req.decoded.id;
+    try{
+        await mysql.query("deleteDiary", req.body.diaryCode);
+        return res.status(200).json({
+            userid : userid,
+            message : "일기삭제 성공",
+    
+        });; 
+    }
+    catch(err){
+        console.log(err);
+        return res.status(200).json({
+            message : "일기삭제 실패"
+    
+        });; 
+    }
 });
 
 router.get('/payload', verifyToken, (req, res) => {
@@ -91,5 +131,7 @@ router.get('/payload', verifyToken, (req, res) => {
       }
     });
   });
+
+
 
 module.exports = router;

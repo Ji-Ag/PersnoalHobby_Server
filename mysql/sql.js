@@ -14,7 +14,9 @@ module.exports={
 
     getBigDiary : `select title,content,createDate from diary where diaryCode =?`,
 
-    setDiary : `update into diary set ?`,
+    setDiary : `update diary set title=?,content=?,createDate=? where diaryCode=?`,
+
+    deleteDiary : `delete from diary where diaryCode=?`,
 
     //favorite
     putFavorite : `insert into favorite set ?`,
@@ -26,5 +28,5 @@ module.exports={
     //HBTI
     getHBTI : `select hbti,content,hobby from HBTI where hbti =?`,
 
-    setHBTI : `update HBTI set hbti=? where userId = ?`
+    setHBTI : `update users set hbti=? where userId = ?`
 }
