@@ -28,5 +28,7 @@ module.exports={
     //HBTI
     getHBTI : `select hbti,content,hobby from HBTI where hbti =?`,
 
-    setHBTI : `update users set hbti=? where userId = ?`
+    setHBTI : `update users set hbti=? where userId = ?`,
+
+    getUserHBTI : `select hbti from users where userId=?`
 }

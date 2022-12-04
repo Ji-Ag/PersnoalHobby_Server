@@ -42,4 +42,21 @@ router.post("/setHBTI",verifyToken,async (req,res)=>{
 
 });
 
+router.get("/getUserHBTI",verifyToken,async (req,res)=>{
+    const userid = req.decoded.id;
+    try{
+       const hbti = await mysql.query("getUserHBTI", userid);
+             return res.status(200).json({
+                 message : "유저의 HBTI 불러오기 성공",
+                 userid : userid,
+                 hbti : hbti
+             });; 
+         }
+         catch{
+             return res.status(500).json({
+                 message : "유저의 HBTI 불러오기 실패",
+             });; 
+         }
+
+});
 module.exports = router;
