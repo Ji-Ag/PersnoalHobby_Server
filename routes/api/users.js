@@ -155,7 +155,11 @@ router.post("/login",async (req,res)=>{
            // }
             //}
             }catch{
-                console.log("no id");
+                res.status(200).json({
+                    id : req.body.userid,
+                    message:"아이디 비밀번호를 확인해주세요",
+                    code : -1,
+                });; return;
                }
             // setTimeout(()=>{res.status(200).json({
             //     id : req.query.userid,
