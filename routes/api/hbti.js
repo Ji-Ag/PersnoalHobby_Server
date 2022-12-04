@@ -49,7 +49,7 @@ router.get("/getUserHBTI",verifyToken,async (req,res)=>{
              return res.status(200).json({
                  message : "유저의 HBTI 불러오기 성공",
                  userid : userid,
-                 hbti : hbti
+                 hbti : hbti.hbti
              });; 
          }
          catch{
