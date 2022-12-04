@@ -24,7 +24,7 @@ router.get("/getHBTI",async (req,res)=>{
         }
 });
 
-router.get("/setHBTI",verifyToken,async (req,res)=>{
+router.post("/setHBTI",verifyToken,async (req,res)=>{
     const userid = req.decoded.id;
     try{
         await mysql.query("setHBTI", [req.body.hbti,userid]);
