@@ -12,9 +12,9 @@ router.get("/getHBTI",async (req,res)=>{
        const hbti = await mysql.query("getHBTI", req.query.hbti);
             return res.status(200).json({
                 message : "HBTI 결과 불러오기 성공",
-                hbti : hbti.hbti,
-                content : hbti.content,
-                hobby : hbti.hobby
+                hbti : hbti[0].hbti,
+                content : hbti[0].content,
+                hobby : hbti[0].hobby
             });; 
         }
         catch{
