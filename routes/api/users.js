@@ -113,8 +113,9 @@ router.post("/login",async (req,res)=>{
                 console.log("등록된 회원, 비번일치하는지 확인하자")
                //디코딩
                //var decodedPwd = Buffer.from(req.query.userpwd, "base64").toString('utf8');
+               try{
                 const existpwd = await mysql.query("getPassword", req.body.userid);
-              
+               
                  //암호화
                 var opts = {
                 password: req.body.userpwd,
@@ -153,7 +154,9 @@ router.post("/login",async (req,res)=>{
                     }) 
            // }
             //}
-            
+            }catch{
+                console.log("no id");
+               }
             // setTimeout(()=>{res.status(200).json({
             //     id : req.query.userid,
             //     message:"아이디 비밀번호를 확인해주세요",
