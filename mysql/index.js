@@ -3,12 +3,12 @@ const sql = require('./sql.js');
 require("dotenv").config();
 
 const pool = mysql.createPool({
-    connectionLimit :  10,//process.env.LIMIT, 
-    host : 'personalhobby.ctk6srnbe3rf.us-east-1.rds.amazonaws.com',//process.env.HOST, 
-    port : '3306',//process.env.PORT, 
-    user : 'admin',//process.env.DB_USER, 
-    password : 'mysqlqlqjs1',//process.env.PASSWORD, 
-    database :  "personalhobby"
+    connectionLimit :  process.env.LIMIT, 
+    host : process.env.HOST, 
+    port : process.env.PORT, 
+    user : process.env.DB_USER, 
+    password : process.env.PASSWORD, 
+    database :  process.env.DB
 });
 
 const query = async (alias,values)=>{
