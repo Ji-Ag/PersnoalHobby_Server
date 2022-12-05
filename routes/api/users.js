@@ -15,7 +15,7 @@ router.get('/test',async(req,res)=>{
 
 /*아이디 중복체크*/
 router.get("/checkId", async(req,res)=>{
-    res.cookie('cookie2', 'value2', { sameSite: 'none', secure: true });
+    res.cookie('cookie2', 'value2', { sameSite: 'Lax', secure: true });
     console.log("중복체크요청");
     //var success = false;
     //var message ="";
@@ -62,7 +62,7 @@ router.get("/checkId", async(req,res)=>{
 
 /*회원가입*/
 router.post("/register", async(req,res)=>{
-    res.cookie('cookie2', 'value2', { sameSite: 'none', secure: true });
+    res.cookie('cookie2', 'value2', { sameSite: 'Lax', secure: true });
     console.log("신규회원 등록중");
         let body ='';
             req.on('data',(data)=>{
@@ -105,7 +105,7 @@ router.post("/register", async(req,res)=>{
 
 /*로그인*/
 router.post("/login",async (req,res)=>{
-    res.cookie('cookie2', 'value2', { sameSite: 'none', secure: true });
+    res.cookie('cookie2', 'value2', { sameSite: 'Lax', secure: true });
     console.log("유효성체크중")
    
     const existid = await mysql.query("getID");
