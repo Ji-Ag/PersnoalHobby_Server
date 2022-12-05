@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
 var bodyParser = require('body-parser');
+var session = require('express-session')
+var FileStore= require('session-file-store')(session);
 
 var app = express();
 
@@ -63,10 +65,23 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.use(cookieParser());
-app.get('/',(req,res)=>{
-  res.cookie('cookie2', 'value2', { sameSite: 'none', secure: true });
-})
+app.use(session({
+  secret :  "secrete_key",
+  resave : false,
+  saveUninitialized : true,
+  store : new FileStore({logFn: function(){}}),
+  cookie:{
+    secure: true,
+     maxAge: 7 * 24 * 60 * 60 * 1000,
+     sameSite: 'None',
+  }
+  
+}))
+
+//app.use(cookieParser());
+// app.get('/',(req,res)=>{
+//   res.cookie('cookie2', 'value2', { sameSite: 'none', secure: true });
+// })
 
 // cookie('key', 'value', option)
 // cookie('key2', 'value2', option)
