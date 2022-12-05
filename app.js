@@ -69,7 +69,7 @@ app.use(session({
   secret :  "secrete_key",
   resave : false,
   saveUninitialized : true,
-  store : new FileStore({logFn: function(){}}),
+  //store : new FileStore({logFn: function(){}}),
   cookie:{
     secure: true,
      maxAge: 7 * 24 * 60 * 60 * 1000,
