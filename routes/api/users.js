@@ -133,7 +133,7 @@ router.post("/login",async (req,res)=>{
                                 id: req.body.userid,
                             }, process.env.SECRETE,
                             {
-                                expiresIn :"1h",
+                                expiresIn :"1d",
                                 issuer : "토큰발급자",
                               
                             },

@@ -26,7 +26,7 @@ module.exports={
     deleteFavorite : `delete from favorite where userId=? and favorite=?`,
 
     //HBTI
-    getHBTI : `select hbti,content,hobby from HBTI where hbti =?`,
+    getHBTI : `select hbti,content,hobby from HBTI where hbti=?`,
 
     setHBTI : `update users set hbti=? where userId = ?`,
 
