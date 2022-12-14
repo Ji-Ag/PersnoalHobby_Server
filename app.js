@@ -11,7 +11,7 @@ var FileStore= require('session-file-store')(session);
 var app = express();
 
 app.use(cors({
-  origin:"http://localhost:3000",
+  origin:"http://52.87.149.82:3000",
   methods: ["GET","POST"],
   credentials: true,
 }
